@@ -1,0 +1,239 @@
+<div class="main-content">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-star dashboard-star-style"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Points</p>
+                                <p class="card-title">15 <!-- TODO: clickable points request -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-refresh"></i> Update Now
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-project dashboard-project-style"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Active projects</p>
+                                <p class="card-title">2
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-calendar-o"></i> Last day
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-calendar dashboard-calendar-style"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Upcoming events</p>
+                                <p class="card-title">25
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer ">
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> In the last hour
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">My projects</h4>
+                    <p class="card-category">All your projects listed here</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive dashboard-table">
+                        <table class="table">
+
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="footer-title">manage projects</div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="pull-right">
+                                <button class="btn btn-success btn-round btn-icon btn-sm dashboard-small-btns">
+                                    <i class="nc-icon nc-sound-wave"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">My mentors</h4>
+                    <p class="card-category">Mentors of your projects</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive dashboard-table">
+                        <table class="table">
+
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="footer-title">View mentors</div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="pull-right">
+                                <button class="btn btn-danger btn-round btn-icon btn-sm dashboard-small-btns">
+                                    <i class="nc-icon nc-single-02"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header ">
+                    <h4 class="card-title">My progress</h4>
+                    <p class="card-category">Your year progress</p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="pointsChart" height="470px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Email Statistics</h5>
+                    <p class="card-category">Last Campaign Performance</p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="chartDonut1" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                    <div class="legend">
+                        <i class="fa fa-circle text-info"></i> Open
+                    </div>
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-calendar"></i> Number of emails sent
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">New Visitators</h5>
+                    <p class="card-category">Out Of Total Number</p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="chartDonut2" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                    <div class="legend">
+                        <i class="fa fa-circle text-warning"></i> Visited
+                    </div>
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-check"></i> Campaign sent 2 days ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Orders</h5>
+                    <p class="card-category">Total number</p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="chartDonut3" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                    <div class="legend">
+                        <i class="fa fa-circle text-danger"></i> Completed
+                    </div>
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-clock-o"></i> Updated 3 minutes ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card ">
+                <div class="card-header ">
+                    <h5 class="card-title">Subscriptions</h5>
+                    <p class="card-category">Our Users</p>
+                </div>
+                <div class="card-body ">
+                    <canvas id="chartDonut4" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
+                </div>
+                <div class="card-footer ">
+                    <div class="legend">
+                        <i class="fa fa-circle text-secondary"></i> Ended
+                    </div>
+                    <hr>
+                    <div class="stats">
+                        <i class="fa fa-history"></i> Total users
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

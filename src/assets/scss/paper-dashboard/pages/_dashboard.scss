@@ -1,0 +1,34 @@
+.dasboard-scale {
+  transform: scale(1.5, 1.5);
+}
+
+.dashboard-calendar-style,
+a.dashboard-calendar-style:focus, a.dashboard-calendar-style:hover {
+  @extend .dasboard-scale;
+  color: #1F77D0 !important;
+}
+
+
+.dashboard-star-style,
+a.dashboard-star-style:focus, a.dashboard-star-style:hover {
+  @extend .dasboard-scale;
+  color: $warning-color !important;
+}
+
+
+.dashboard-project-style,
+a.dashboard-project-style:focus, a.dashboard-project-style:hover {
+  @extend .dasboard-scale;
+  color: $success-color !important;
+}
+
+.dashboard-table {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 350px;
+}
+
+.dashboard-small-btns {
+  transform: scale(1.3, 1.3);
+}
+
