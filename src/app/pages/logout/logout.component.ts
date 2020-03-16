@@ -6,11 +6,11 @@ declare var $: any;
 
 @Component({
     moduleId: module.id,
-    selector: 'login-cmp',
-    templateUrl: './login.component.html'
+    selector: 'logout-cmp',
+    templateUrl: './logout.component.html'
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LogoutComponent implements OnInit, OnDestroy {
     focus;
     focus1;
     focus2;
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         var toggleButton = this.toggleButton;
         var body = document.getElementsByTagName('body')[0];
         var sidebar = document.getElementsByClassName('navbar-collapse')[0];
-        if (this.sidebarVisible === false) {
+        if (this.sidebarVisible == false) {
             setTimeout(function () {
                 toggleButton.classList.add('toggled');
             }, 500);

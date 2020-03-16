@@ -3,6 +3,8 @@ import {ROUTES} from '../.././sidebar/sidebar.component';
 import {Router, ActivatedRoute, NavigationEnd, NavigationStart} from '@angular/router';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
+import {AppComponent} from '../../app.component';
+import {BroadcastService, MsalService} from '@azure/msal-angular';
 
 var misc: any = {
     navbar_menu_visible: 0,
@@ -27,7 +29,12 @@ export class NavbarComponent implements OnInit {
 
     @ViewChild('navbar-cmp', {static: false}) button;
 
-    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router) {
+    logout() {
+        this.authService.logout();
+    }
+
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router,
+                private authService: MsalService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;

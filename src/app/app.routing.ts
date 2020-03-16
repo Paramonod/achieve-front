@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {AdminLayoutComponent} from './layouts/admin/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth/auth-layout.component';
+import {MsalGuard} from '@azure/msal-angular';
 
 export const AppRoutes: Routes = [{
     path: '',
@@ -12,8 +13,8 @@ export const AppRoutes: Routes = [{
     component: AdminLayoutComponent,
     children: [{
         path: '',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-    }, {
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
+}, {
         path: 'components',
         loadChildren: './components/components.module#ComponentsModule'
     }, {
@@ -45,7 +46,7 @@ export const AppRoutes: Routes = [{
     path: '',
     component: AuthLayoutComponent,
     children: [{
-        path: 'pages',
+        path: '',
         loadChildren: './pages/pages.module#PagesModule'
     }]
 }

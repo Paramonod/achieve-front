@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { PasswordValidation } from './password-validator.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {PasswordValidation} from './password-validator.component';
 
 declare interface User {
     text?: string;
@@ -19,7 +19,7 @@ declare interface User {
     templateUrl: 'validationforms.component.html'
 })
 
-export class ValidationFormsComponent{
+export class ValidationFormsComponent {
 
     public register: User;
     public login: User;
@@ -45,24 +45,27 @@ export class ValidationFormsComponent{
     }
 
     save(model: User, isValid: boolean) {
-    // call API to save customer
-        if(isValid){
+        // call API to save customer
+        if (isValid) {
             console.log(model, isValid);
         }
     }
+
     save1(model: User, isValid: boolean) {
-    // call API to save customer
-        if(isValid){
+        // call API to save customer
+        if (isValid) {
             console.log(model, isValid);
         }
     }
+
     save2(model: User, isValid: boolean) {
-    // call API to save customer
-        if(isValid){
+        // call API to save customer
+        if (isValid) {
             console.log(model, isValid);
         }
     }
-    onSubmit(value: any):void{
+
+    onSubmit(value: any): void {
         console.log(value);
     }
 }
