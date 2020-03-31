@@ -121,6 +121,8 @@
     color: $default-color;
     border: 1px solid $light-gray !important;
     border-radius: $border-radius-base;
+    display: flow-root;
+    width: 100%;
     &:hover,
     &:focus {
         background: $default-color;
@@ -154,6 +156,12 @@
     &.btn-link.active{
         background-color: transparent;
     }
+}
+
+.btn-connect {
+    display: flow-root;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .btn{

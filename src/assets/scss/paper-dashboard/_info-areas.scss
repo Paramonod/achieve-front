@@ -168,3 +168,13 @@
         color: $white-color;
     }
 }
+
+.wizard-row {
+    align-items: baseline;
+}
+
+.icon-wizard {
+    margin-right: 20px;
+    transform: scale(1.5, 1.5);
+    color: $green;
+}

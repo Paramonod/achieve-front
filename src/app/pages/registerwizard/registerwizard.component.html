@@ -104,7 +104,7 @@
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
                                                             <input type="text" class="form-control"
-                                                                   placeholder="First Name (required)" name="firstname"
+                                                                   placeholder="Имя (обязательно)" name="firstname"
                                                                    (focus)="focus=true" (blur)="focus=false"/>
                                                         </div>
                                                         <div class="input-group"
@@ -113,7 +113,7 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-circle-10"></i></span>
                                                             </div>
-                                                            <input type="text" placeholder="Last Name (required)"
+                                                            <input type="text" placeholder="Фамилия (обязательно)"
                                                                    class="form-control" name="lastname"
                                                                    (focus)="focus1=true" (blur)="focus1=false"/>
                                                         </div>
@@ -125,7 +125,7 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-send"></i></span>
                                                             </div>
-                                                            <input type="email" placeholder="Email (required)"
+                                                            <input type="email" placeholder="Email (обязательно)"
                                                                    class="form-control" name="email"
                                                                    (focus)="focus2=true" (blur)="focus2=false"/>
                                                         </div>
@@ -135,15 +135,51 @@
                                             <div class="tab-pane" id="account">
                                                 <h5 class="info-text"><b>Подключитесь к рабочему аккаунту</b></h5>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-sm-6">
-                                                        <select class="selectpicker" data-size="9"
-                                                                data-style="btn btn-outline-register"
-                                                                title="Domain required" required>
-                                                            <option disabled selected>Домен</option>
-                                                            <option value="2">IT108</option>
-                                                            <option value="3">ORT</option>
-                                                        </select>
+                                                    <div class="col-sm-4">
+                                                        <div class="row justify-content-center wizard-row">
+                                                            <div class="col">
+                                                                <select (change)="selectDomain($event.target.value)"
+                                                                        class="selectpicker" data-size="4"
+                                                                        data-style="btn btn-outline-register"
+                                                                        title="Domain required" required>
+                                                                    <option disabled selected>Домен</option>
+                                                                    <option value="IT108">IT108</option>
+                                                                    <option value="ORT">ORT</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col">
+                                                                <i class="nc-icon nc-check-2 pull-right icon-wizard"
+                                                                   [hidden]="!domainSelected"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group" [hidden]="!domainSelected"
+                                                             [ngClass]="{'input-group-focus':focus3===true}">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="nc-icon nc-single-02"></i></span>
+                                                            </div>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Логин (обязательно)" name="domainlogin"
+                                                                   (focus)="focus3=true" (blur)="focus3=false"/>
+                                                        </div>
+                                                        <div class="input-group" [hidden]="!domainSelected"
+                                                             [ngClass]="{'input-group-focus':focus4===true}">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="nc-icon nc-single-02"></i></span>
+                                                            </div>
+                                                            <input type="password" class="form-control"
+                                                                   placeholder="Пароль (обязательно)"
+                                                                   name="domainpassword"
+                                                                   (focus)="focus4=true" (blur)="focus4=false"/>
+                                                        </div>
+                                                        <input type='button' [hidden]="!вdomainSelected"
+                                                               class='btn btn-connect btn-fill btn-rose btn-wd'
+                                                               name='Connect' value='Подключить'/>
                                                     </div>
+                                                    <div class="col-sm-6">
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="address">
@@ -178,7 +214,8 @@
                                                                 <option value="Afghanistan"> Afghanistan</option>
                                                                 <option value="Albania"> Albania</option>
                                                                 <option value="Algeria"> Algeria</option>
-                                                                <option value="American Samoa"> American Samoa</option>
+                                                                <option value="American Samoa"> American Samoa
+                                                                </option>
                                                                 <option value="Andorra"> Andorra</option>
                                                                 <option value="Angola"> Angola</option>
                                                                 <option value="Anguilla"> Anguilla</option>
@@ -198,7 +235,8 @@
                                                    name='finish' value='Finish'/>
                                         </div>
                                         <div class="pull-left">
-                                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
+                                            <input type='button'
+                                                   class='btn btn-previous btn-fill btn-default btn-wd'
                                                    name='previous' value='Previous'/>
                                         </div>
                                         <div class="clearfix"></div>

@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import {LogoutComponent} from './logout/logout.component';
 import { ErrorComponent} from './error/error.component';
 import {RegisterwizardComponent} from './registerwizard/registerwizard.component';
+import {RegisterwizardService} from './registerwizard/registerwizard.service';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import {RegisterwizardComponent} from './registerwizard/registerwizard.component
         LogoutComponent,
         ErrorComponent,
         RegisterwizardComponent
-    ]
+    ],
+    providers: [RegisterwizardService]
 })
 
 export class PagesModule {}

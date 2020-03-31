@@ -1,5 +1,7 @@
 import {Component, OnInit, OnChanges, AfterViewInit, SimpleChanges, ElementRef} from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
+import {selector} from 'rxjs-compat/operator/publish';
+import {RegisterwizardService} from './registerwizard.service';
 // import * as $ from 'jquery';
 
 declare var swal: any;
@@ -23,18 +25,33 @@ interface FileReaderEvent extends Event {
 })
 
 export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges {
+    domainSelected;
+    possibleDomains;
     focus;
     focus1;
     focus2;
+    focus3;
+    focus4;
     private toggleButton;
     private sidebarVisible: boolean;
     private nativeElement: Node;
     test: Date = new Date();
 
 
-    constructor(private element: ElementRef) {
+    constructor(private element: ElementRef, private registerwizardService: RegisterwizardService) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+        this.possibleDomains = registerwizardService.getPossibleDomains();
+    }
+
+    selectDomain(value: string) {
+        console.log(value);
+        this.domainSelected = true;
+    }
+
+
+    keydown(event) {
+        console.log(event);
     }
 
     readURL(input) {
@@ -83,7 +100,7 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
 
     ngOnInit() {
         this.checkFullPageBackgroundImage();
-
+        this.domainSelected = false;
         setTimeout(function () {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
@@ -112,6 +129,14 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
                 email: {
                     required: true,
                     minlength: 3,
+                },
+                domainlogin: {
+                    required: true,
+                    minlength: 3,
+                },
+                domainpassword: {
+                    required: true,
+                    minlength: 5,
                 }
             },
 
@@ -143,6 +168,14 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
                     $validator.focusInvalid();
                     return false;
                 }
+            },
+            tryConnect: function () {
+                var $valid = $('.card-wizard form').valid();
+                if (!$valid) {
+                    $validator.focusInvalid();
+                    return false;
+                }
+                return true;
             },
 
 
