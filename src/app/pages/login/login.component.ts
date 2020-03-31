@@ -1,6 +1,8 @@
 import {Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
+import {AuthService} from '../../shared/authentication/auth.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import construct = Reflect.construct;
 
 declare var $: any;
 
@@ -9,6 +11,7 @@ declare var $: any;
     selector: 'login-cmp',
     templateUrl: './login.component.html'
 })
+
 
 export class LoginComponent implements OnInit, OnDestroy {
     focus;
@@ -19,9 +22,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     private sidebarVisible: boolean;
     private nativeElement: Node;
 
-    constructor(private element: ElementRef) {
+    constructor(private element: ElementRef, private authService: AuthService) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+    }
+
+    loginRedirect(): void {
+        this.authService.login();
     }
 
     checkFullPageBackgroundImage() {

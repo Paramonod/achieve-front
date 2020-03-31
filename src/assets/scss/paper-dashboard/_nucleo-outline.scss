@@ -7,11 +7,10 @@ License - nucleoapp.com/license/
 @font-face {
   font-family: 'nucleo-icons';
   // src: url('');
-  src: url('../fonts/achieve-master.eot');
-  src: url('../fonts/achieve-master.eot') format('embedded-opentype'),
-        url('../fonts/achieve-master.woff2') format('woff2'),
-        url('../fonts/achieve-master.woff') format('woff'),
-        url('../fonts/achieve-master.ttf') format('truetype');
+  src: url('../fonts/icomoon.eot');
+  src: url('../fonts/icomoon.eot') format('embedded-opentype'),
+        url('../fonts/icomoon.woff') format('woff'),
+        url('../fonts/icomoon.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 
@@ -193,11 +192,15 @@ License - nucleoapp.com/license/
 }
 
 .nc-project::before {
-  content: "\ea03";
+  content: "\e901";
 }
 
 .nc-air-baloon::before {
   content: "\ea01";
+}
+
+.nc-email-85::before {
+  content: "\ea2a";
 }
 
 .nc-album-2::before {
@@ -213,7 +216,7 @@ License - nucleoapp.com/license/
  }
 
 .nc-calendar::before {
-  content: "\ea02";
+  content: "\e902";
 }
 
 .nc-align-left-2::before {
@@ -362,10 +365,6 @@ License - nucleoapp.com/license/
 
 .nc-diamond::before {
   content: "\ea29";
-}
-
-.nc-email-85::before {
-  content: "\ea2a";
 }
 
 .nc-favourite-28::before {
@@ -517,7 +516,7 @@ License - nucleoapp.com/license/
 }
 
 .nc-single-02::before {
-  content: "\ea44";
+  content: "\ea50";
 }
 
 .nc-single-copy-04::before {

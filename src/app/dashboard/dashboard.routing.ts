@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {DashboardComponent} from './dashboard.component';
 import {MsalGuard} from '@azure/msal-angular';
+import {AuthGuard} from '../shared/authentication/auth.guard';
 
 export const DashboardRoutes: Routes = [{
 
@@ -9,7 +10,7 @@ export const DashboardRoutes: Routes = [{
     children: [{
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [MsalGuard]
+        canActivate: [AuthGuard]
     }]
 }];
 

@@ -116,6 +116,18 @@
         background-color: $white-color;
     }
 }
+.btn-outline-register {
+    @include btn-outline-styles($default-color, $default-states-color);
+    color: $default-color;
+    border: 1px solid $light-gray !important;
+    border-radius: $border-radius-base;
+    &:hover,
+    &:focus {
+        background: $default-color;
+        color: $white !important;
+    }
+}
+
 .btn-neutral {
     @include btn-styles($white-color, $white-color);
     color: $default-color;
@@ -210,7 +222,7 @@
   }
   .btn {
     &:focus {
-      background-color: $info-color !important;
+      background-color: $info-color;
     }
   }
 }
