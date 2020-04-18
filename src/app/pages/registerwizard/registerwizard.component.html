@@ -49,6 +49,7 @@
                         <div class="wizard-container">
                             <div class="card card-wizard" data-color="primary" id="wizardProfile">
                                 <form action="" method="">
+
                                     <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                                     <div class="card-header text-center">
                                         <h3 class="card-title"><b>
@@ -138,7 +139,8 @@
                                                     <div class="col-sm-4">
                                                         <div class="row justify-content-center wizard-row">
                                                             <div class="col">
-                                                                <select (change)="selectDomain($event.target.value)"
+                                                                <select #domainName
+                                                                        (change)="selectDomain($event.target.value)"
                                                                         class="selectpicker" data-size="4"
                                                                         data-style="btn btn-outline-register"
                                                                         title="Domain required" required>
@@ -147,10 +149,6 @@
                                                                     <option value="ORT">ORT</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="col">
-                                                                <i class="nc-icon nc-check-2 pull-right icon-wizard"
-                                                                   [hidden]="!domainSelected"></i>
-                                                            </div>
                                                         </div>
                                                         <div class="input-group" [hidden]="!domainSelected"
                                                              [ngClass]="{'input-group-focus':focus3===true}">
@@ -158,8 +156,10 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Логин (обязательно)" name="domainlogin"
+                                                            <input #domainLogin type="text"
+                                                                   class="form-control"
+                                                                   placeholder="Логин (обязательно)"
+                                                                   name="domainlogin"
                                                                    (focus)="focus3=true" (blur)="focus3=false"/>
                                                         </div>
                                                         <div class="input-group" [hidden]="!domainSelected"
@@ -168,12 +168,14 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input type="password" class="form-control"
+                                                            <input #domainPass type="password"
+                                                                   class="form-control"
                                                                    placeholder="Пароль (обязательно)"
                                                                    name="domainpassword"
                                                                    (focus)="focus4=true" (blur)="focus4=false"/>
                                                         </div>
-                                                        <input type='button' [hidden]="!вdomainSelected"
+                                                        <input type='button' [hidden]="!domainSelected"
+                                                               (click)="onConnect(domainName.value, domainLogin.value, domainPass.value)"
                                                                class='btn btn-connect btn-fill btn-rose btn-wd'
                                                                name='Connect' value='Подключить'/>
                                                     </div>

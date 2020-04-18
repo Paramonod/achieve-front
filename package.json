@@ -7,7 +7,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt",
+    "start": "ng serve ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -17,17 +17,18 @@
   "private": true,
   "dependencies": {
     "oidc-client": "latest",
+    "@microsoft/signalr": "latest",
     "@adactive/bootstrap-tagsinput": "0.8.2",
     "@agm/core": "1.0.0-beta.6",
-    "@angular/animations": "8.0.1",
-    "@angular/common": "8.0.1",
-    "@angular/compiler": "8.0.1",
-    "@angular/core": "8.0.1",
-    "@angular/forms": "8.0.1",
+    "@angular/animations": "8.2.0",
+    "@angular/common": "8.2.0",
+    "@angular/compiler": "8.2.0",
+    "@angular/core": "8.2.0",
+    "@angular/forms": "8.2.0",
     "@angular/http": "7.2.15",
     "@angular/platform-browser": "8.0.1",
     "@angular/platform-browser-dynamic": "8.0.1",
-    "@angular/router": "8.0.1",
+    "@angular/router": "8.2.0",
     "@azure/msal-angular": "^1.0.0-beta.4",
     "@ng-bootstrap/ng-bootstrap": "4.2.1",
     "@ngui/map": "0.30.3",
@@ -78,9 +79,9 @@
     "zone.js": "0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.800.3",
-    "@angular/cli": "8.0.3",
-    "@angular/compiler-cli": "8.0.1",
+    "@angular-devkit/build-angular": "0.802.0",
+    "@angular/cli": "8.2.0",
+    "@angular/compiler-cli": "8.2.0",
     "@types/bootstrap": "4.3.0",
     "@types/chartist": "0.9.46",
     "@types/jasmine": "3.3.13",
@@ -98,6 +99,6 @@
     "protractor": "5.4.2",
     "ts-node": "8.3.0",
     "tslint": "5.17.0",
-    "typescript": "3.4.5"
+    "typescript": "3.5.0-rc"
   }
 }

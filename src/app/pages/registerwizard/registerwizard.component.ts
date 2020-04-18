@@ -1,7 +1,10 @@
 import {Component, OnInit, OnChanges, AfterViewInit, SimpleChanges, ElementRef} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {selector} from 'rxjs-compat/operator/publish';
 import {RegisterwizardService} from './registerwizard.service';
+import {SignalRService} from '../../services/signal-r.service';
+import {AdConnectModel} from '../../models/ad-connect-model';
+import {log} from 'util';
 // import * as $ from 'jquery';
 
 declare var swal: any;
@@ -38,7 +41,9 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
     test: Date = new Date();
 
 
-    constructor(private element: ElementRef, private registerwizardService: RegisterwizardService) {
+    constructor(private element: ElementRef,
+                private registerwizardService: RegisterwizardService,
+                private signalRService: SignalRService) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
         this.possibleDomains = registerwizardService.getPossibleDomains();
@@ -63,6 +68,15 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
             };
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    onConnect(domain: string, login: string, password: string) {
+        console.log(domain)
+        var conn: AdConnectModel = new AdConnectModel();
+        conn.domain = 'it108.local';
+        conn.password = password;
+        conn.username = login;
+        this.signalRService.connect(conn);
     }
 
     onFinishWizard() {
