@@ -20,6 +20,7 @@ interface FileReaderEvent extends Event {
     getMessage(): string;
 }
 
+
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line:component-selector
@@ -29,7 +30,10 @@ interface FileReaderEvent extends Event {
 
 export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges {
     domainSelected;
+    domainLogo = 'default';
     possibleDomains;
+    isConnected = false;
+    domainSubscriber;
     focus;
     focus1;
     focus2;
@@ -47,13 +51,21 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
         this.possibleDomains = registerwizardService.getPossibleDomains();
+        this.domainSubscriber = this.signalRService.domain.subscribe({
+            next(data) {
+                console.log(data);
+            },
+            error(msg) {
+                console.log(msg);
+            }
+        });
     }
 
     selectDomain(value: string) {
         console.log(value);
         this.domainSelected = true;
+        this.domainLogo = 'ort';
     }
-
 
     keydown(event) {
         console.log(event);
@@ -73,10 +85,14 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
     onConnect(domain: string, login: string, password: string) {
         console.log(domain)
         var conn: AdConnectModel = new AdConnectModel();
-        conn.domain = 'it108.local';
+        conn.domain = domain;
         conn.password = password;
         conn.username = login;
         this.signalRService.connect(conn);
+    }
+
+    onConnected(data: AdConnectModel) {
+        console.log(data)
     }
 
     onFinishWizard() {

@@ -1,16 +1,33 @@
 import {Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {AdConnectModel} from '../models/ad-connect-model';
+import {RegisterwizardComponent} from '../pages/registerwizard/registerwizard.component';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SignalRService {
     private hubConnection: signalR.HubConnection;
+    public domain;
 
     constructor() {
         this.buildConnection();
         this.startConnection();
+        this.domain = new Observable((observer) => {
+            let watchId: number;
+
+            this.hubConnection.on('Connect', (data: AdConnectModel) => {
+                observer.next(data);
+            })
+
+            // When the consumer unsubscribes, clean up data ready for next subscription.
+            return {
+                unsubscribe() {
+                    navigator.geolocation.clearWatch(watchId);
+                }
+            };
+        });
     }
 
     public buildConnection = () => {
@@ -21,7 +38,6 @@ export class SignalRService {
     }
 
     public startConnection = () => {
-        this.registerEvents();
         this.hubConnection
             .start()
             .then(() => {
@@ -41,9 +57,6 @@ export class SignalRService {
             .catch(err => console.error(err));
     }
 
-    public registerEvents() {
-        this.hubConnection.on('Connect', (data: AdConnectModel) => {
-            console.log(data);
-        })
-    }
 }
+
+

@@ -138,17 +138,15 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-sm-4">
                                                         <div class="row justify-content-center wizard-row">
-                                                            <div class="col">
-                                                                <select #domainName
-                                                                        (change)="selectDomain($event.target.value)"
-                                                                        class="selectpicker" data-size="4"
-                                                                        data-style="btn btn-outline-register"
-                                                                        title="Domain required" required>
-                                                                    <option disabled selected>Домен</option>
-                                                                    <option value="IT108">IT108</option>
-                                                                    <option value="ORT">ORT</option>
-                                                                </select>
-                                                            </div>
+                                                            <select #domainName
+                                                                    (change)="selectDomain($event.target.value)"
+                                                                    class="selectpicker" data-size="4"
+                                                                    data-style="btn btn-outline-register"
+                                                                    title="Domain required" required>
+                                                                <option disabled selected>Домен</option>
+                                                                <option value="it108.local">IT108</option>
+                                                                <!--<option value="ORT">ORT</option> -->
+                                                            </select>
                                                         </div>
                                                         <div class="input-group" [hidden]="!domainSelected"
                                                              [ngClass]="{'input-group-focus':focus3===true}">
@@ -180,8 +178,14 @@
                                                                name='Connect' value='Подключить'/>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                    </div>
+                                                        <img [hidden]="!domainSelected" src="./assets/img/domains/{{domainLogo}}.png"
+                                                             class="picture-square"
+                                                             title=""/>
 
+                                                        <h6 class="info-text"><b>Подключитесь к рабочему аккаунту
+                                                            <br />dff</b></h6>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="address">
