@@ -6,7 +6,6 @@ import {AgmCoreModule} from '@agm/core';
 import {DashboardComponent} from './dashboard.component';
 
 import {DashboardRoutes} from './dashboard.routing';
-import {MsalService} from '@azure/msal-angular';
 import {HttpClient} from '@angular/common/http';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v2.0/me';

@@ -104,7 +104,9 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control"
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formName" type="text"
+                                                                   class="form-control"
                                                                    placeholder="Имя (обязательно)" name="firstname"
                                                                    (focus)="focus=true" (blur)="focus=false"/>
                                                         </div>
@@ -114,7 +116,9 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-circle-10"></i></span>
                                                             </div>
-                                                            <input type="text" placeholder="Фамилия (обязательно)"
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formSurname" type="text"
+                                                                   placeholder="Фамилия (обязательно)"
                                                                    class="form-control" name="lastname"
                                                                    (focus)="focus1=true" (blur)="focus1=false"/>
                                                         </div>
@@ -126,9 +130,25 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-send"></i></span>
                                                             </div>
-                                                            <input type="email" placeholder="Email (обязательно)"
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formEmail" type="email"
+                                                                   placeholder="Email (обязательно)"
                                                                    class="form-control" name="email"
                                                                    (focus)="focus2=true" (blur)="focus2=false"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group"
+                                                             [ngClass]="{'input-group-focus':focus22===true}">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="nc-icon nc-key-25"></i></span>
+                                                            </div>
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formPassword" type="password"
+                                                                   placeholder="Новый пароль (обязательно)"
+                                                                   class="form-control" name="password"
+                                                                   (focus)="focus22=true" (blur)="focus22=false"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,7 +158,8 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-sm-4">
                                                         <div class="row justify-content-center wizard-row">
-                                                            <select #domainName
+                                                            <select [ngModelOptions]="{standalone: true}" #domainName
+                                                                    [(ngModel)]="formDomainName"
                                                                     (change)="selectDomain($event.target.value)"
                                                                     class="selectpicker" data-size="4"
                                                                     data-style="btn btn-outline-register"
@@ -154,7 +175,9 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input #domainLogin type="text"
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formDomainLogin" #domainLogin
+                                                                   type="text"
                                                                    class="form-control"
                                                                    placeholder="Логин (обязательно)"
                                                                    name="domainlogin"
@@ -166,7 +189,9 @@
                                                                 <span class="input-group-text"><i
                                                                         class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input #domainPass type="password"
+                                                            <input [ngModelOptions]="{standalone: true}"
+                                                                   [(ngModel)]="formDomainPass" #domainPass
+                                                                   type="password"
                                                                    class="form-control"
                                                                    placeholder="Пароль (обязательно)"
                                                                    name="domainpassword"
@@ -178,55 +203,57 @@
                                                                name='Connect' value='Подключить'/>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <img [hidden]="!domainSelected" src="./assets/img/domains/{{domainLogo}}.png"
+                                                        <img [hidden]="!domainSelected"
+                                                             src="./assets/img/domains/{{domainLogo}}.png"
                                                              class="picture-square"
                                                              title=""/>
 
-                                                        <h6 class="info-text"><b>Подключитесь к рабочему аккаунту
-                                                            <br />dff</b></h6>
+                                                        <h6 class="info-text"><b>{{domainLine1}}<br/>{{domainLine2}}</b>
+                                                        </h6>
+                                                        <h5 [hidden]="!isAnswered"
+                                                            [style.color]="isConnectionSuccessful ? 'green':'red'"
+                                                            id="connStatus"
+                                                            class="info-text"><b>{{connectionStatus}}</b></h5>
 
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="address">
+                                                <h5 class="info-text"><b>Что вам интересно?</b></h5>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-sm-12">
-                                                        <h5 class="info-text"> Are you living in a nice area? </h5>
-                                                    </div>
-                                                    <div class="col-sm-7">
-                                                        <div class="form-group">
-                                                            <label>Street Name</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group">
-                                                            <label>Street No.</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group">
-                                                            <label>City</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group select-wizard">
-                                                            <label>Country</label>
-                                                            <select class="selectpicker" data-size="7"
-                                                                    data-style="btn btn-primary btn-round"
-                                                                    title="Single Select">
-                                                                <option value="Afghanistan"> Afghanistan</option>
-                                                                <option value="Albania"> Albania</option>
-                                                                <option value="Algeria"> Algeria</option>
-                                                                <option value="American Samoa"> American Samoa
-                                                                </option>
-                                                                <option value="Andorra"> Andorra</option>
-                                                                <option value="Angola"> Angola</option>
-                                                                <option value="Anguilla"> Anguilla</option>
-                                                                <option value="Antarctica"> Antarctica</option>
-                                                            </select>
+                                                    <div class="col-lg-10">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <div
+                                                                     class="choice" data-toggle="wizard-checkbox">
+                                                                    <input name="interests" type="checkbox"
+                                                                           value="Engineer">
+                                                                    <div class="icon">
+                                                                        <i class="nc-icon nc-atom"></i>
+                                                                    </div>
+                                                                    <h6>Инженерный профиль</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="choice" data-toggle="wizard-checkbox">
+                                                                    <input type="checkbox" name="interests"
+                                                                           value="Economist">
+                                                                    <div class="icon">
+                                                                        <i class="nc-icon nc-chart-pie-36"></i>
+                                                                    </div>
+                                                                    <h6>Социально-экономический профиль</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="choice" data-toggle="wizard-checkbox">
+                                                                    <input type="checkbox" name="interests"
+                                                                           value="Humanitarian">
+                                                                    <div class="icon">
+                                                                        <i class="nc-icon nc-book-bookmark"></i>
+                                                                    </div>
+                                                                    <h6>Гуманитарный профиль</h6>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -237,7 +264,8 @@
                                         <div class="pull-right">
                                             <input type='button' class='btn btn-next btn-fill btn-rose btn-wd'
                                                    name='next' value='Next'/>
-                                            <input type='button' class='btn btn-finish btn-fill btn-rose btn-wd'
+                                            <input (click)="onFinishWizard()" type='button'
+                                                   class='btn btn-finish btn-fill btn-rose btn-wd'
                                                    name='finish' value='Finish'/>
                                         </div>
                                         <div class="pull-left">

@@ -2,9 +2,11 @@ import {Routes} from '@angular/router';
 
 import {AdminLayoutComponent} from './layouts/admin/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth/auth-layout.component';
-import {MsalGuard} from '@azure/msal-angular';
+import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
 
-export const AppRoutes: Routes = [{
+export const AppRoutes: Routes = [  { path: 'id_token', component: AuthCallbackComponent  },
+    { path: 'auth-callback', component: AuthCallbackComponent  },
+    {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
@@ -14,7 +16,7 @@ export const AppRoutes: Routes = [{
     children: [{
         path: '',
         loadChildren: './dashboard/dashboard.module#DashboardModule',
-}, {
+    }, {
         path: 'components',
         loadChildren: './components/components.module#ComponentsModule'
     }, {
@@ -49,5 +51,4 @@ export const AppRoutes: Routes = [{
         path: '',
         loadChildren: './pages/pages.module#PagesModule'
     }]
-}
-];
+}];

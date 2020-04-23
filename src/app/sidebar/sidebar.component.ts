@@ -1,4 +1,5 @@
 import {Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit} from '@angular/core';
+import {AuthService} from '../shared/authentication/auth.service';
 
 // Metadata
 export interface RouteInfo {
@@ -24,7 +25,13 @@ export const ROUTES: RouteInfo[] = [{
     title: 'Dashboard',
     type: 'link',
     icontype: 'nc-icon nc-bank'
-}];
+},
+    {
+        path: '/logout',
+        title: 'Logout',
+        type: 'link',
+        icontype: 'nc-icon nc-key-25'
+    }];
 
 @Component({
     moduleId: module.id,
@@ -32,8 +39,9 @@ export const ROUTES: RouteInfo[] = [{
     templateUrl: 'sidebar.component.html',
 })
 
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
+
 
     isNotMobileMenu() {
         if (window.outerWidth > 991) {

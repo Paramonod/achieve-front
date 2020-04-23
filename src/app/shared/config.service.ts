@@ -6,7 +6,7 @@ export class ConfigService {
     constructor() {}
 
     get authApiURI() {
-        return 'http://localhost:5000/';
+        return 'http://localhost:5000';
     }
 
     get resourceApiURI() {

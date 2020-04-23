@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private sidebarVisible: boolean;
     private nativeElement: Node;
 
-    constructor(private element: ElementRef, private authService: AuthService) {
+    constructor(private element: ElementRef, private authService: AuthService, private router: Router) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
@@ -42,6 +42,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
+        if (this.authService.isAuthenticated()) {
+            this.router.navigate(["/"]);
+        }
         this.checkFullPageBackgroundImage();
         var body = document.getElementsByTagName('body')[0];
         body.classList.add('login-page');

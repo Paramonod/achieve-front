@@ -13,6 +13,9 @@ export const PagesRoutes: Routes = [{
         path: 'login',
         component: LoginComponent
     }, {
+        path: 'logout',
+        component: LogoutComponent
+    }, {
         path: 'lock',
         component: LockComponent
     }, {

@@ -17,6 +17,7 @@ import {AuthLayoutComponent} from './layouts/auth/auth-layout.component';
 import {CoreModule} from './shared/core.module';
 import {ConfigService} from './shared/config.service';
 import {AppRoutes} from './app.routing';
+import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import {AppRoutes} from './app.routing';
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent,
+        AuthCallbackComponent,
     ],
     bootstrap: [AppComponent],
     providers: [ConfigService],

@@ -4,7 +4,7 @@ import {Router, ActivatedRoute, NavigationEnd, NavigationStart} from '@angular/r
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {Subscription} from 'rxjs/Subscription';
 import {AppComponent} from '../../app.component';
-import {BroadcastService, MsalService} from '@azure/msal-angular';
+import {AuthService} from '../authentication/auth.service';
 
 var misc: any = {
     navbar_menu_visible: 0,
@@ -25,19 +25,21 @@ export class NavbarComponent implements OnInit {
     private toggleButton;
     private sidebarVisible: boolean;
     private _router: Subscription;
-    public open: boolean = false;
+    public open = false;
 
     @ViewChild('navbar-cmp', {static: false}) button;
 
-    logout() {
-        this.authService.logout();
-    }
-
-    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router,
-                private authService: MsalService) {
+    constructor(location: Location, private renderer: Renderer2,
+                private element: ElementRef,
+                private router: Router,
+                private authService: AuthService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+    }
+
+    logout() {
+        this.authService.signout();
     }
 
     ngOnInit() {

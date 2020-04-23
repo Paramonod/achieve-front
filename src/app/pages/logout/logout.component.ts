@@ -1,6 +1,7 @@
 import {Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {AuthService} from '../../shared/authentication/auth.service';
 
 declare var $: any;
 
@@ -19,7 +20,7 @@ export class LogoutComponent implements OnInit, OnDestroy {
     private sidebarVisible: boolean;
     private nativeElement: Node;
 
-    constructor(private element: ElementRef) {
+    constructor(private element: ElementRef, private authService: AuthService) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
@@ -34,6 +35,8 @@ export class LogoutComponent implements OnInit, OnDestroy {
         }
     };
 
+
+
     ngOnInit() {
         this.checkFullPageBackgroundImage();
         var body = document.getElementsByTagName('body')[0];
@@ -45,8 +48,8 @@ export class LogoutComponent implements OnInit, OnDestroy {
             // after 1000 ms we add the class animated to the login/register card
             $('.card').removeClass('card-hidden');
         }, 700)
+        this.authService.signout();
     }
-
     ngOnDestroy() {
         var body = document.getElementsByTagName('body')[0];
         body.classList.remove('login-page');

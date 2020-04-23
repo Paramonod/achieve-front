@@ -34,12 +34,14 @@ export class AuthService extends BaseService {
     }
 
     async completeAuthentication() {
+        console.log(this.user);
         this.user = await this.manager.signinRedirectCallback();
+        console.log(this.user);
         this._authNavStatusSource.next(this.isAuthenticated());
     }
 
     register(userRegistration: any) {
-        return this.http.post(this.configService.authApiURI + '/account', userRegistration).pipe(catchError(this.handleError));
+        return this.http.post(this.configService.authApiURI + '/api/account', userRegistration).pipe(catchError(this.handleError));
     }
 
     isAuthenticated(): boolean {
@@ -65,8 +67,8 @@ getClientSettings(): UserManagerSettings {
     return {
         authority: 'http://localhost:5000',
         client_id: 'angular_spa',
-        redirect_uri: 'http://localhost:4200/dashboard',
+        redirect_uri: 'http://localhost:4200/#/auth-callback#',
         response_type: 'id_token token',
-        scope: 'openid profile achieve-api'
+        scope: 'openid profile api.read'
     };
 }

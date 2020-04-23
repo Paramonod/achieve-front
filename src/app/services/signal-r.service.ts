@@ -10,25 +10,19 @@ import {Observable} from 'rxjs';
 export class SignalRService {
     private hubConnection: signalR.HubConnection;
     public domain;
+    public domainSubscriber = new Observable((observer) => {
+        this.hubConnection.on('Connect', (data: AdConnectModel) => {
+            observer.next(data);
+            observer.complete();
+        })
+    });
 
     constructor() {
         this.buildConnection();
         this.startConnection();
-        this.domain = new Observable((observer) => {
-            let watchId: number;
 
-            this.hubConnection.on('Connect', (data: AdConnectModel) => {
-                observer.next(data);
-            })
-
-            // When the consumer unsubscribes, clean up data ready for next subscription.
-            return {
-                unsubscribe() {
-                    navigator.geolocation.clearWatch(watchId);
-                }
-            };
-        });
     }
+
 
     public buildConnection = () => {
         this.hubConnection = new signalR.HubConnectionBuilder()

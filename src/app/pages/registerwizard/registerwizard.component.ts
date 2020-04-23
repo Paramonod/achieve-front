@@ -5,10 +5,20 @@ import {RegisterwizardService} from './registerwizard.service';
 import {SignalRService} from '../../services/signal-r.service';
 import {AdConnectModel} from '../../models/ad-connect-model';
 import {log} from 'util';
+import {Observable} from 'rxjs';
+import {type} from 'os';
+import {finalize} from 'rxjs/operators';
+import {AuthService} from '../../shared/authentication/auth.service';
+import {RegisterModel} from '../../models/register-model';
+import {Router} from '@angular/router';
 // import * as $ from 'jquery';
 
 declare var swal: any;
 declare var $: any;
+
+const successMsg = 'Успешно!';
+const errorMsg = 'Ошибка!';
+
 
 interface FileReaderEventTarget extends EventTarget {
     result: string
@@ -29,16 +39,33 @@ interface FileReaderEvent extends Event {
 })
 
 export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges {
+    formDomainName;
+    formName;
+    formSurname;
+    formEmail;
+    formPassword;
+    formDomainLogin;
+    formDomainPass;
+    formInterests;
     domainSelected;
     domainLogo = 'default';
+    domainLine1;
+    domainLine2;
+    connectionStatus = '';
+    formEngineer;
+    formEconomist;
+    formHumanitarian;
     possibleDomains;
-    isConnected = false;
-    domainSubscriber;
+    isAnswered = false;
+    isConnectionSuccessful = false;
     focus;
     focus1;
     focus2;
+    focus22;
     focus3;
     focus4;
+    userGroups;
+    connecting = false;
     private toggleButton;
     private sidebarVisible: boolean;
     private nativeElement: Node;
@@ -47,24 +74,19 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
 
     constructor(private element: ElementRef,
                 private registerwizardService: RegisterwizardService,
-                private signalRService: SignalRService) {
+                private signalRService: SignalRService,
+                private authService: AuthService,
+                private router: Router) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
         this.possibleDomains = registerwizardService.getPossibleDomains();
-        this.domainSubscriber = this.signalRService.domain.subscribe({
-            next(data) {
-                console.log(data);
-            },
-            error(msg) {
-                console.log(msg);
-            }
-        });
     }
 
     selectDomain(value: string) {
         console.log(value);
         this.domainSelected = true;
         this.domainLogo = 'ort';
+        this.connecting = true;
     }
 
     keydown(event) {
@@ -82,22 +104,108 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
         }
     }
 
+    onConnected(data: AdConnectModel) {
+        console.log(data);
+        this.isAnswered = true;
+        this.isConnectionSuccessful = data.isSuccess;
+        if (data.isSuccess) {
+            this.domainLine1 = 'подключено к домену' + data.domain;
+            this.domainLine2 = data.result.principalName;
+            this.connectionStatus = successMsg;
+            this.userGroups = data.result.groups;
+        } else {
+            this.domainLine1 = 'ошибка при подключении';
+            this.domainLine2 = data.error;
+            this.connectionStatus = errorMsg;
+        }
+    }
+
     onConnect(domain: string, login: string, password: string) {
-        console.log(domain)
         var conn: AdConnectModel = new AdConnectModel();
         conn.domain = domain;
         conn.password = password;
         conn.username = login;
+        this.signalRService.domainSubscriber.subscribe((data: AdConnectModel) => {
+            this.onConnected(data);
+        });
         this.signalRService.connect(conn);
     }
 
-    onConnected(data: AdConnectModel) {
-        console.log(data)
-    }
-
     onFinishWizard() {
-        // here you can do something, sent the form to server via ajax and show a success message with swal
-        swal('Good job!', 'You clicked the finish button!', 'success');
+        var color = 'primary;'
+
+        $.notify({
+            icon: 'now-ui-icons ui-1_bell-53',
+            message: 'Регистрируем вас.'
+
+        }, {
+            type: type[color],
+            timer: 4000,
+            placement: {
+                from: 'bottom',
+                align: 'right'
+            }
+        });
+
+        var interests: string[];
+        interests = [];
+        document.getElementsByName('interests').forEach(value => {
+            var val = <HTMLInputElement>value;
+            if (val.checked) {
+                interests.push(val.value);
+            }
+        })
+
+        var userRegistration = new RegisterModel();
+        userRegistration.Domain = this.formDomainName;
+        userRegistration.DomainUsername = this.formDomainLogin;
+        userRegistration.Email = this.formEmail;
+        userRegistration.Name = this.formName;
+        userRegistration.Surname = this.formSurname;
+        userRegistration.Password = this.formPassword;
+        userRegistration.Groups = this.userGroups;
+        userRegistration.Interests = interests;
+
+        console.log(userRegistration);
+
+        this.authService.register(userRegistration)
+            .pipe(finalize(() => {
+                console.log('fin')
+            }))
+            .subscribe(
+                result => {
+                    if (result) {
+                        console.log('success')
+                        $.notify({
+                            icon: 'now-ui-icons ui-1_bell-53',
+                            message: 'Вы успешно зарегистрировались.'
+
+                        }, {
+                            type: type['green;'],
+                            timer: 4000,
+                            placement: {
+                                from: 'bottom',
+                                align: 'right'
+                            }
+                        });
+                    }
+                    this.router.navigate(['/login']);
+                },
+                error => {
+                    console.log('error' + error)
+                    $.notify({
+                        icon: 'now-ui-icons ui-1_bell-53',
+                        message: 'Ошибка регистрации.'
+
+                    }, {
+                        type: type['red;'],
+                        timer: 4000,
+                        placement: {
+                            from: 'bottom',
+                            align: 'right'
+                        }
+                    });
+                });
     }
 
     sidebarToggle() {
@@ -128,6 +236,7 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
         }
     };
 
+
     ngOnInit() {
         this.checkFullPageBackgroundImage();
         this.domainSelected = false;
@@ -145,8 +254,17 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
                 tickIcon: 'nc-check-2'
             });
         }
+
         // Code for the Validator
+        $.validator.addMethod(
+            'loginRegex',
+            function (value, element) {
+                return new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,40})").test(value);
+            },
+        )
         const $validator = $('.card-wizard form').validate({
+
+
             rules: {
                 firstname: {
                     required: true,
@@ -160,13 +278,28 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
                     required: true,
                     minlength: 3,
                 },
+                password: {
+                    required: true,
+                    minlength: 8,
+                    loginRegex: true,
+                },
                 domainlogin: {
                     required: true,
-                    minlength: 3,
+                    minlength: 2,
                 },
                 domainpassword: {
                     required: true,
                     minlength: 5,
+                },
+                interests: {
+                    required: true,
+                }
+            },
+            messages: {
+                'password': {
+                    required: 'Вы должны ввести пароль',
+                    rangelength: 'Пароль должен быть больше восьми символов',
+                    loginRegex: 'В пароле должна быть как минимум одна большая латинская буква, одна маленькая и один символ'
                 }
             },
 
@@ -194,8 +327,26 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
 
             onNext: function (tab, navigation, index) {
                 var $valid = $('.card-wizard form').valid();
+                var status = document.getElementById('connStatus').innerText;
                 if (!$valid) {
                     $validator.focusInvalid();
+                    return false;
+                }
+                if (index == 2 && status != successMsg) {
+                    var color = 'primary;'
+
+                    $.notify({
+                        icon: 'now-ui-icons ui-1_bell-53',
+                        message: 'Вам <b>обязательно</b> нужно подключиться к домену.'
+
+                    }, {
+                        type: type[color],
+                        timer: 4000,
+                        placement: {
+                            from: 'bottom',
+                            align: 'right'
+                        }
+                    });
                     return false;
                 }
             },
@@ -266,8 +417,7 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
             onTabClick: function (tab: any, navigation: any, index: any) {
 
                 const $valid = $('.card-wizard form').valid();
-
-                if (!$valid) {
+                if (!$valid || (index == 2 && status != successMsg)) {
                     return false;
                 } else {
                     return true;
