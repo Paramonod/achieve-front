@@ -7,6 +7,9 @@ import {DashboardComponent} from './dashboard.component';
 
 import {DashboardRoutes} from './dashboard.routing';
 import {HttpClient} from '@angular/common/http';
+import {DashboardService} from './dashboard.service';
+import {AuthService} from '../shared/authentication/auth.service';
+import {finalize} from 'rxjs/operators';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v2.0/me';
 
@@ -28,5 +31,6 @@ export class DashboardModule {
 
     constructor() {
     }
+
 
 }

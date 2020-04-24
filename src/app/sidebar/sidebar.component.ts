@@ -41,6 +41,7 @@ export const ROUTES: RouteInfo[] = [{
 
 export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
+    Username = 'Username';
 
 
     isNotMobileMenu() {

@@ -2,7 +2,7 @@ import {UserManager, UserManagerSettings, User} from 'oidc-client';
 import {Injectable} from '@angular/core';
 import {BaseService} from '../base.service';
 import {BehaviorSubject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from '../config.service';
 import {catchError} from 'rxjs/operators';
 
@@ -34,9 +34,7 @@ export class AuthService extends BaseService {
     }
 
     async completeAuthentication() {
-        console.log(this.user);
         this.user = await this.manager.signinRedirectCallback();
-        console.log(this.user);
         this._authNavStatusSource.next(this.isAuthenticated());
     }
 

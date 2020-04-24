@@ -10,6 +10,6 @@ export class ConfigService {
     }
 
     get resourceApiURI() {
-        return 'http://localhost:5001/';
+        return 'https://localhost:5010';
     }
 }

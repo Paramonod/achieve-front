@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import Chart from 'chart.js';
+import {finalize} from 'rxjs/operators';
+import {DashboardService} from './dashboard.service';
+import {AuthService} from '../shared/authentication/auth.service';
 
 declare const $: any;
 
@@ -23,6 +26,9 @@ export class DashboardComponent implements OnInit {
     public activeUsersChartLabels: Array<any>;
     public activeUsersChartColors: Array<any>;
 
+    constructor(private dashboardService: DashboardService, private authService: AuthService) {
+    }
+
     public chartClicked(e: any): void {
         console.log(e);
     }
@@ -44,6 +50,14 @@ export class DashboardComponent implements OnInit {
     }
 
     public ngOnInit() {
+
+        this.dashboardService.fetchTopSecretData(this.authService.authorizationHeaderValue)
+            .pipe(finalize(() => {
+
+            })).subscribe(
+            result => {
+                console.log(result)
+            });
 
         this.chartColor = '#FFFFFF';
 
