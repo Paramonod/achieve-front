@@ -22,7 +22,7 @@ export class UserService {
     }
 
     public connect = (data: AdConnectModel) => {
-        this.signalRService.hubConnection.invoke('Connect', data)
+        this.signalRService.userHubConnection.invoke('Connect', data)
             .catch(err => console.error(err));
     }
 }

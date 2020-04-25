@@ -10,6 +10,6 @@ export class ConfigService {
     }
 
     get resourceApiURI() {
-        return 'https://localhost:5010';
+        return 'https://api.it108.org';
     }
 }
