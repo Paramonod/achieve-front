@@ -18,6 +18,7 @@ import {CoreModule} from './shared/core.module';
 import {ConfigService} from './shared/config.service';
 import {AppRoutes} from './app.routing';
 import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
+import {SilentCallbackComponent} from './silent-callback/silent-callback.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
         AdminLayoutComponent,
         AuthLayoutComponent,
         AuthCallbackComponent,
+        SilentCallbackComponent
     ],
     bootstrap: [AppComponent],
     providers: [ConfigService],

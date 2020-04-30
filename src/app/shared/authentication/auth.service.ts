@@ -33,6 +33,10 @@ export class AuthService extends BaseService {
         return this.manager.signinRedirect();
     }
 
+    silent() {
+        return this.manager.signinSilentCallback();
+    }
+
     async completeAuthentication() {
         this.user = await this.manager.signinRedirectCallback();
         this._authNavStatusSource.next(this.isAuthenticated());
@@ -48,6 +52,10 @@ export class AuthService extends BaseService {
 
     get authorizationHeaderValue(): string {
         return `${this.user.token_type} ${this.user.access_token}`;
+    }
+
+    get JwtToken(): string {
+        return `${this.user.access_token}`;
     }
 
     get name(): string {
@@ -67,6 +75,8 @@ getClientSettings(): UserManagerSettings {
         client_id: 'angular_spa',
         redirect_uri: 'http://localhost:4200/#/auth-callback#',
         response_type: 'id_token token',
-        scope: 'openid profile api.read'
+        scope: 'openid profile api.read',
+        silent_redirect_uri: 'http://localhost:4200/#/silent-callback#',
+        automaticSilentRenew: true
     };
 }

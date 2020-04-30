@@ -3,9 +3,11 @@ import {Routes} from '@angular/router';
 import {AdminLayoutComponent} from './layouts/admin/admin-layout.component';
 import {AuthLayoutComponent} from './layouts/auth/auth-layout.component';
 import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
+import {SilentCallbackComponent} from './silent-callback/silent-callback.component';
 
 export const AppRoutes: Routes = [  { path: 'id_token', component: AuthCallbackComponent  },
     { path: 'auth-callback', component: AuthCallbackComponent  },
+    { path: 'silent-callback', component: SilentCallbackComponent  },
     {
     path: '',
     redirectTo: 'dashboard',

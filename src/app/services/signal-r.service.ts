@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Optional} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import {HubConnection, HubConnectionState} from '@microsoft/signalr';
+import {HubConnection, HubConnectionState, IHttpConnectionOptions} from '@microsoft/signalr';
 import {AdConnectModel} from '../models/ad-connect-model';
 import {Observable} from 'rxjs';
 import {ConfigService} from '../shared/config.service';
+import {AuthService} from '../shared/authentication/auth.service';
+import {HttpConnection} from '@microsoft/signalr/dist/esm/HttpConnection';
 
 @Injectable({
     providedIn: 'root'
@@ -21,19 +23,18 @@ export class SignalRService {
         })
     });
 
-    constructor(private configService: ConfigService) {
+    constructor(private configService: ConfigService, private authService: AuthService) {
         this.buildHubs();
         this.startConnections();
     }
 
     private buildHubs() {
         this.authHubConnection = this.buildConnection(this.authHubName);
-        // this.userHubConnection = this.buildConnection(this.userHubName);
+        this.userHubConnection = this.buildConnection(this.userHubName);
     }
 
     private startConnections() {
         this.startConnection(this.authHubConnection);
-        // this.startConnection(this.userHubConnection);
     }
 
 
@@ -55,6 +56,42 @@ export class SignalRService {
 
                 setTimeout(function () {
                     this.startConnection(conn);
+                }, 3000);
+            })
+    }
+
+
+    public buildAuthorizedHubs() {
+        var options: IHttpConnectionOptions = {
+            accessTokenFactory: () => {
+                return this.authService.JwtToken;
+            }
+        };
+
+        this.userHubConnection = this.buildAuthorizedConnection(this.userHubName, options);
+    }
+
+    private startAuthorizedConnections() {
+        this.startAuthorizedConnection(this.userHubConnection);
+    }
+
+    public buildAuthorizedConnection = (hub: string, options: IHttpConnectionOptions) => {
+        return new signalR.HubConnectionBuilder()
+            .withUrl(this.configService.resourceApiURI + '/hubs/' + hub, options)
+            .withAutomaticReconnect()
+            .build()
+    }
+
+    public startAuthorizedConnection = async (conn: HubConnection) => {
+        await conn
+            .start()
+            .then(() => {
+                console.log('Connection started...');
+            })
+            .catch(err => {
+                console.log('Error while connection: ' + err);
+                setTimeout(function () {
+                    this.startAuthorizedConnection(conn);
                 }, 3000);
             })
     }
