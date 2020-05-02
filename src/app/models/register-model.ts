@@ -1,3 +1,5 @@
+import {AdUserModel} from './ad-user-model';
+
 export class RegisterModel {
     Name: string;
     Surname: string;
@@ -7,4 +9,5 @@ export class RegisterModel {
     DomainUsername: string;
     Groups: string[];
     Interests: string[];
+    ADUser: AdUserModel;
 }

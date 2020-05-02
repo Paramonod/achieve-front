@@ -11,6 +11,7 @@ import {finalize} from 'rxjs/operators';
 import {AuthService} from '../../shared/authentication/auth.service';
 import {RegisterModel} from '../../models/register-model';
 import {Router} from '@angular/router';
+import {AdUserModel} from '../../models/ad-user-model';
 // import * as $ from 'jquery';
 
 declare var swal: any;
@@ -52,9 +53,7 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
     domainLine1;
     domainLine2;
     connectionStatus = '';
-    formEngineer;
-    formEconomist;
-    formHumanitarian;
+    adUser: AdUserModel;
     possibleDomains;
     isAnswered = false;
     isConnectionSuccessful = false;
@@ -113,6 +112,7 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
             this.domainLine2 = data.result.principalName;
             this.connectionStatus = successMsg;
             this.userGroups = data.result.groups;
+            this.adUser = data.result;
         } else {
             this.domainLine1 = 'ошибка при подключении';
             this.domainLine2 = data.error;
@@ -165,6 +165,8 @@ export class RegisterwizardComponent implements OnInit, AfterViewInit, OnChanges
         userRegistration.Password = this.formPassword;
         userRegistration.Groups = this.userGroups;
         userRegistration.Interests = interests;
+
+        userRegistration.ADUser = this.adUser;
 
         console.log(userRegistration);
 

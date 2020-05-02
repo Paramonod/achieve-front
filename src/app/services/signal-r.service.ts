@@ -97,6 +97,9 @@ export class SignalRService {
     }
 
     public connect = (data: AdConnectModel) => {
+        if (this.authHubConnection == null) {
+            this.buildHubs()
+        }
         if (this.authHubConnection.state != HubConnectionState.Connected) {
             this.startConnection(this.authHubConnection)
         }
