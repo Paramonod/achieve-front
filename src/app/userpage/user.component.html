@@ -116,64 +116,82 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form [formGroup]="userForm">
                         <div class="row">
                             <div class="col-md-5 pr-1">
                                 <div class="form-group">
-                                    <label>Организация</label>
-                                    <input type="text" class="form-control" disabled="" placeholder="Organization"
+                                    <label for="organization">Организация</label>
+                                    <input id="organization" name="organization" type="text" class="form-control"
+                                           disabled="" placeholder="Organization"
                                            value="IT108 Inc.">
                                 </div>
                             </div>
                             <div class="col-md-7 pl-1">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" placeholder="Email" value="{{User.email}}">
+                                    <input name="email" id="email" type="email" class="form-control" required
+                                           placeholder="Email"
+                                           value="{{User.email}}"
+                                           formControlName="email"
+                                    >
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 pr-1">
                                 <div class="form-group">
-                                    <label>Имя</label>
-                                    <input type="text" class="form-control" placeholder="Имя" value="{{User.name}}">
+                                    <label for="name">Имя</label>
+                                    <input id="name" type="text" class="form-control" placeholder="Имя" name="name"
+                                           value="{{User.name}}"
+                                           formControlName="name">
                                 </div>
                             </div>
                             <div class="col-md-6 pl-1">
                                 <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" placeholder="Фамилия" value="{{User.surname}}">
+                                    <label for="surname">Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Фамилия"
+                                           id="surname" name="surname"
+                                           formControlName="surname">
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="User.group != 'Student'" class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Кабинет</label>
+                                    <label for="room">Кабинет</label>
                                     <input type="text" class="form-control" placeholder="Кабинет"
-                                           value="{{User.room}}">
+                                           id="room" name="room"
+                                           value="{{User.room}}"
+                                           formControlName="room">
                                 </div>
                             </div>
                         </div>
-                        <div  class="row">
+                        <div *ngIf="User.group == 'Student'" class="row">
                             <div class="col-md-6 pr-1">
                                 <div class="form-group">
-                                    <label>Номер класса</label>
-                                    <input type="text" class="form-control" placeholder="Класс" value="{{User.grade}}">
+                                    <label for="grade">Номер класса</label>
+                                    <input type="text" class="form-control" placeholder="Класс" id="grade" name="grade"
+                                           value="{{User.grade}}"
+                                           formControlName="grade">
                                 </div>
                             </div>
                             <div class="col-md-6 pl-1">
                                 <div class="form-group">
-                                    <label>Буква класса</label>
-                                    <input type="text" class="form-control" placeholder="Буква" value="{{User.gradeLiteral}}">
+                                    <label for="gradeLiteral">Буква класса</label>
+                                    <input type="text" class="form-control" placeholder="Буква"
+                                           id="gradeLiteral" name="gradeLiteral"
+                                           value="{{User.gradeLiteral}}"
+                                           formControlName="gradeLiteral">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Обо мне</label>
-                                    <textarea rows="4" cols="80" class="form-control textarea">{{User.description}}</textarea>
+                                    <label for="description">Обо мне</label>
+                                    <textarea id="description" rows="4" cols="80" name="description"
+                                              formControlName="description"
+                                              class="form-control textarea">{{User.description}}</textarea>
                                 </div>
                             </div>
                         </div>

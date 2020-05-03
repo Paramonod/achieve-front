@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if (this.authService.isAuthenticated()) {
-            this.router.navigate(["/"]);
+            this.router.navigate(["/dashboard"]);
         }
         this.checkFullPageBackgroundImage();
         var body = document.getElementsByTagName('body')[0];

@@ -1,9 +1,9 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {SignalRService} from './signal-r.service';
 import {UserModel} from '../models/user-model';
-import {AdConnectModel} from '../models/ad-connect-model';
 import {Observable} from 'rxjs';
 import {HubConnectionState} from '@microsoft/signalr';
+import {Router} from '@angular/router';
 
 function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -36,22 +36,33 @@ export class UserService {
         })
     });
 
-    constructor(private signalRService: SignalRService) {
+    constructor(private signalRService: SignalRService, private router: Router) {
     }
 
-    private async requestUser() {
+    private async requestUser(): Promise<boolean> {
 
         if (this.signalRService.userHubConnection == null) {
             this.signalRService.buildAuthorizedHubs();
 
         }
-        if (this.signalRService.userHubConnection.state != HubConnectionState.Connected) {
+        if (this.signalRService.userHubConnection.state == HubConnectionState.Disconnected) {
             await this.signalRService.startAuthorizedConnection(this.signalRService.userHubConnection);
+        }
+        if (this.signalRService.userHubConnection.state != HubConnectionState.Connected) {
+            console.log(this.signalRService.userHubConnection.state);
         }
         this.signalRService.userHubConnection.invoke('GetUser')
             .catch(err => {
                 console.log('Error while connection: ' + err);
+                if (err.status == 401) {
+                    this.router.navigate(['/'])
+                }
+                setTimeout(async () => {
+                    await this.requestUser();
+                }, 30)
+                return false;
             });
+        return true;
 
     }
 

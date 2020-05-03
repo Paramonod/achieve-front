@@ -5,6 +5,7 @@ import {AdConnectModel} from '../models/ad-connect-model';
 import {Observable} from 'rxjs';
 import {ConfigService} from '../shared/config.service';
 import {AuthService} from '../shared/authentication/auth.service';
+import {Router} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -69,7 +70,7 @@ export class SignalRService {
         this.userHubConnection = this.buildAuthorizedConnection(this.userHubName, options);
     }
 
-    private startAuthorizedConnections() {
+    public startAuthorizedConnections() {
         this.startAuthorizedConnection(this.userHubConnection);
     }
 
@@ -91,6 +92,11 @@ export class SignalRService {
                     // this.startAuthorizedConnection(conn);
                 }, 3000);
             })
+        while (conn.state != HubConnectionState.Connected) {
+            if (conn.state == HubConnectionState.Disconnected) {
+                break;
+            }
+        }
     }
 
     public connect(data: AdConnectModel) {

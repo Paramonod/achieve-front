@@ -1,10 +1,12 @@
-import {UserManager, UserManagerSettings, User} from 'oidc-client';
+import {User, UserManager, UserManagerSettings} from 'oidc-client';
 import {Injectable} from '@angular/core';
 import {BaseService} from '../base.service';
 import {BehaviorSubject} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ConfigService} from '../config.service';
 import {catchError} from 'rxjs/operators';
+import {SignalRService} from '../../services/signal-r.service';
+import {HubConnectionState} from '@microsoft/signalr';
 
 @Injectable({
     providedIn: 'root'
@@ -47,7 +49,8 @@ export class AuthService extends BaseService {
     }
 
     isAuthenticated(): boolean {
-        return this.user != null && !this.user.expired;
+        var res = this.user != null && !this.user.expired;
+        return res;
     }
 
     get authorizationHeaderValue(): string {

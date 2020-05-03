@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit, NgZone, ChangeDetectorRef} from '@angular/core';
 import {AuthService} from '../shared/authentication/auth.service';
 import {UserService} from '../services/user.service';
 import {UserModel} from '../models/user-model';
@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
     User: UserModel = DummyUser;
 
-    constructor(private userService: UserService) {
+    constructor(private ref: ChangeDetectorRef, private userService: UserService, private zone: NgZone) {
     }
 
 
@@ -61,10 +61,17 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.userService.userSubscriber.subscribe((data: UserModel) => {
+            console.log(data);
+            this.zone.run(() => {
+                this.User = data;
+            });
             this.User = data;
+            this.ref.detectChanges();
+            this.ref.reattach();
         });
     }
 
     ngAfterViewInit() {
+        console.log(this.User)
     }
 }
