@@ -5,6 +5,10 @@ import {AdConnectModel} from '../models/ad-connect-model';
 import {Observable} from 'rxjs';
 import {HubConnectionState} from '@microsoft/signalr';
 
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -20,14 +24,13 @@ export class UserService {
             observer.complete();
         }
 
-        if (this.signalRService.userHubConnection != null) {
+        if (this.signalRService.userHubConnection == undefined) {
             this.signalRService.buildAuthorizedHubs();
         }
 
         this.requestUser();
 
         this.signalRService.userHubConnection.on('GetUser', (data: UserModel) => {
-            console.log(data);
             observer.next(data);
             observer.complete();
         })
@@ -38,11 +41,18 @@ export class UserService {
 
     private async requestUser() {
 
-        console.log('requesting user');
+        if (this.signalRService.userHubConnection == null) {
+            this.signalRService.buildAuthorizedHubs();
+
+        }
         if (this.signalRService.userHubConnection.state != HubConnectionState.Connected) {
-            await this.signalRService.startAuthorizedConnection(this.signalRService.userHubConnection)
+            await this.signalRService.startAuthorizedConnection(this.signalRService.userHubConnection);
         }
         this.signalRService.userHubConnection.invoke('GetUser')
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.log('Error while connection: ' + err);
+            });
+
     }
+
 }

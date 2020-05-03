@@ -1,11 +1,10 @@
-import {Injectable, Optional} from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {HubConnection, HubConnectionState, IHttpConnectionOptions} from '@microsoft/signalr';
 import {AdConnectModel} from '../models/ad-connect-model';
 import {Observable} from 'rxjs';
 import {ConfigService} from '../shared/config.service';
 import {AuthService} from '../shared/authentication/auth.service';
-import {HttpConnection} from '@microsoft/signalr/dist/esm/HttpConnection';
 
 @Injectable({
     providedIn: 'root'
@@ -30,11 +29,10 @@ export class SignalRService {
 
     private buildHubs() {
         this.authHubConnection = this.buildConnection(this.authHubName);
-        this.userHubConnection = this.buildConnection(this.userHubName);
     }
 
-    private startConnections() {
-        this.startConnection(this.authHubConnection);
+    private async startConnections() {
+        await this.startConnection(this.authHubConnection);
     }
 
 
@@ -45,8 +43,8 @@ export class SignalRService {
             .build()
     }
 
-    public startConnection = (conn: HubConnection) => {
-        conn
+    public async startConnection(conn: HubConnection) {
+        await conn
             .start()
             .then(() => {
                 console.log('Connection started...');
@@ -75,14 +73,13 @@ export class SignalRService {
         this.startAuthorizedConnection(this.userHubConnection);
     }
 
-    public buildAuthorizedConnection = (hub: string, options: IHttpConnectionOptions) => {
+    public buildAuthorizedConnection(hub: string, options: IHttpConnectionOptions) {
         return new signalR.HubConnectionBuilder()
             .withUrl(this.configService.resourceApiURI + '/hubs/' + hub, options)
-            .withAutomaticReconnect()
             .build()
     }
 
-    public startAuthorizedConnection = async (conn: HubConnection) => {
+    public async startAuthorizedConnection(conn: HubConnection) {
         await conn
             .start()
             .then(() => {
@@ -91,12 +88,12 @@ export class SignalRService {
             .catch(err => {
                 console.log('Error while connection: ' + err);
                 setTimeout(function () {
-                    this.startAuthorizedConnection(conn);
+                    // this.startAuthorizedConnection(conn);
                 }, 3000);
             })
     }
 
-    public connect = (data: AdConnectModel) => {
+    public connect(data: AdConnectModel) {
         if (this.authHubConnection == null) {
             this.buildHubs()
         }
