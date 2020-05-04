@@ -25,11 +25,17 @@ export interface ChildrenItems {
 
 // Menu Items
 export const ROUTES: RouteInfo[] = [{
-    path: '/dashboard',
-    title: 'Dashboard',
-    type: 'link',
-    icontype: 'nc-icon nc-bank'
-},
+        path: '/dashboard',
+        title: 'Dashboard',
+        type: 'link',
+        icontype: 'nc-icon nc-bank'
+    },
+    {
+        path: '/projects',
+        title: 'Projects',
+        type: 'link',
+        icontype: 'nc-icon nc-project'
+    },
     {
         path: '/logout',
         title: 'Logout',

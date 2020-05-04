@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "angular2-notifications": "latest",
     "oidc-client": "latest",
     "@microsoft/signalr": "latest",
     "@adactive/bootstrap-tagsinput": "0.8.2",

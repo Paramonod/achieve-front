@@ -19,11 +19,23 @@ import {ConfigService} from './shared/config.service';
 import {AppRoutes} from './app.routing';
 import {AuthCallbackComponent} from './auth-callback/auth-callback.component';
 import {SilentCallbackComponent} from './silent-callback/silent-callback.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {SimpleNotificationsModule} from 'angular2-notifications';
+import {ProjectRoutes} from './projects/projects.routing';
+import {ProjectsModule} from './projects/projects.module';
 
 
 @NgModule({
     imports: [
+        BrowserModule,
         BrowserAnimationsModule,
+        SimpleNotificationsModule.forRoot({
+            timeOut: 4000,
+            showProgressBar: true,
+            pauseOnHover: true,
+            clickToClose: true,
+            clickIconToClose: true
+        }),
         FormsModule,
         RouterModule.forRoot(AppRoutes, {
             useHash: true
@@ -35,7 +47,7 @@ import {SilentCallbackComponent} from './silent-callback/silent-callback.compone
         FooterModule,
         FixedPluginModule,
         CoreModule,
-        HttpClientModule
+        HttpClientModule,
     ],
     declarations: [
         AppComponent,

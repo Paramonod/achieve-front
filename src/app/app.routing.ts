@@ -41,6 +41,9 @@ export const AppRoutes: Routes = [  { path: 'id_token', component: AuthCallbackC
         loadChildren: './userpage/user.module#UserModule'
     }, {
         path: '',
+        loadChildren: './projects/projects.module#ProjectsModule'
+    }, {
+        path: '',
         loadChildren: './timeline/timeline.module#TimelineModule'
     }, {
         path: '',

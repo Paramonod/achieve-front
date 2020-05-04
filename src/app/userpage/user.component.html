@@ -106,17 +106,17 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header row">
-                    <div class="col-md col-2">
-                        <h5 class="title">Редактировать профиль</h5>
+                <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                    <div class="card-header row">
+                        <div class="col-md col-2">
+                            <h5 class="title">Редактировать профиль</h5>
+                        </div>
+                        <div class="col-md col-2 pull-right">
+                            <input type='submit' class='btn btn-next btn-fill btn-rose btn-wd pull-right'
+                                   name='edit' value='Сохранить'/>
+                        </div>
                     </div>
-                    <div class="col-md col-2 pull-right">
-                        <input type='button' class='btn btn-next btn-fill btn-rose btn-wd pull-right'
-                               name='edit' value='Сохранить'/>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="userForm">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-md-5 pr-1">
                                 <div class="form-group">
@@ -131,7 +131,6 @@
                                     <label for="email">Email</label>
                                     <input name="email" id="email" type="email" class="form-control" required
                                            placeholder="Email"
-                                           value="{{User.email}}"
                                            formControlName="email"
                                     >
                                 </div>
@@ -142,7 +141,6 @@
                                 <div class="form-group">
                                     <label for="name">Имя</label>
                                     <input id="name" type="text" class="form-control" placeholder="Имя" name="name"
-                                           value="{{User.name}}"
                                            formControlName="name">
                                 </div>
                             </div>
@@ -161,7 +159,6 @@
                                     <label for="room">Кабинет</label>
                                     <input type="text" class="form-control" placeholder="Кабинет"
                                            id="room" name="room"
-                                           value="{{User.room}}"
                                            formControlName="room">
                                 </div>
                             </div>
@@ -171,7 +168,6 @@
                                 <div class="form-group">
                                     <label for="grade">Номер класса</label>
                                     <input type="text" class="form-control" placeholder="Класс" id="grade" name="grade"
-                                           value="{{User.grade}}"
                                            formControlName="grade">
                                 </div>
                             </div>
@@ -180,7 +176,6 @@
                                     <label for="gradeLiteral">Буква класса</label>
                                     <input type="text" class="form-control" placeholder="Буква"
                                            id="gradeLiteral" name="gradeLiteral"
-                                           value="{{User.gradeLiteral}}"
                                            formControlName="gradeLiteral">
                                 </div>
                             </div>
@@ -191,13 +186,16 @@
                                     <label for="description">Обо мне</label>
                                     <textarea id="description" rows="4" cols="80" name="description"
                                               formControlName="description"
-                                              class="form-control textarea">{{User.description}}</textarea>
+                                              class="form-control textarea"></textarea>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+
             </div>
+
         </div>
     </div>
 </div>
+
